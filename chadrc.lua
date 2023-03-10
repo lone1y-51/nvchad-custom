@@ -4,6 +4,7 @@ local M = {}
 
 M.ui = {
   theme = "radium",
+  -- theme = "github",
     changed_themes = {
         radium = {
             base_30 = {
@@ -25,6 +26,13 @@ M.plugins = {
         },
     ["onsails/lspkind-nvim"] = {},
     ["fatih/vim-go"] = {},
+    ["github/copilot.vim"] = {
+		config = function()
+			vim.g.copilot_no_tab_map = true
+			vim.g.copilot_assume_mapped = true
+			vim.g.copilot_tab_fallback = ""
+		end,
+	},
     ["nsf/gocode"] = {
         tag = "v.20150303",
         rtp = "vim",
@@ -141,6 +149,25 @@ M.plugins = {
               mapping = {
                 ['<C-k>'] = cmp.mapping.select_prev_item(),
                 ['<C-j>'] = cmp.mapping.select_next_item(),
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                        local copilot_keys = vim.fn["copilot#Accept"]()
+                        -- local copilot_keys = ''
+                        if copilot_keys ~= "" and type(copilot_keys) == "string" then
+                            vim.api.nvim_feedkeys(copilot_keys, "i", true)
+                        elseif cmp.visible() then
+                            cmp.select_next_item()
+                        elseif require("luasnip").expand_or_jumpable() then
+                            vim.fn.feedkeys(
+                                vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true),
+                                ""
+                            )
+                        else
+                            fallback()
+                        end
+                    end, {
+                        "i",
+                        "s",
+                    }),
               }
       }
       end,
@@ -183,6 +210,11 @@ M.plugins = {
 }
 
 M.mappings = {
+  disabled = {
+        n = {
+            ["TAB"] = {},
+        },
+    },
   common = {
    i = {
      ["fd"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
