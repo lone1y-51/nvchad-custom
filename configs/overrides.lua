@@ -75,7 +75,7 @@ M.telescope = {
 }
 
 M.cmp = function ()
-    local lspkind = require('lspkind')
+    -- local lspkind = require('lspkind')
     local cmp = require('cmp')
       return {
           sources = cmp.config.sources({
@@ -84,16 +84,16 @@ M.cmp = function ()
           }, { { name = 'buffer' },
                { name = 'path' }
             }),
-          formatting = {
-            format = lspkind.cmp_format({
-              with_text = true,
-              maxwidth = 50,
-              before = function (entry, vim_item)
-                vim_item.menu = "["..string.upper(entry.source.name).."]"
-                return vim_item
-              end
-            })
-          },
+          -- formatting = {
+          --   format = lspkind.cmp_format({
+          --     with_text = true,
+          --     maxwidth = 50,
+          --     before = function (entry, vim_item)
+          --       vim_item.menu = "["..string.upper(entry.source.name).."]"
+          --       return vim_item
+          --     end
+          --   })
+          -- },
           mapping = {
             ['<C-k>'] = cmp.mapping.select_prev_item(),
             ['<C-j>'] = cmp.mapping.select_next_item(),

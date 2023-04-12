@@ -8,15 +8,15 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     lazy = false,
-    -- dependencies = {
-    --   -- format & linting
-    --   {
-    --     "jose-elias-alvarez/null-ls.nvim",
-    --     config = function()
-    --       require "custom.configs.null-ls"
-    --     end,
-    --   },
-    -- },
+    dependencies = {
+      -- format & linting
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function()
+          require "custom.configs.null-ls"
+        end,
+      },
+    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
@@ -46,11 +46,12 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
+    lazy = false,
     opts = overrides.telescope,
   },
   {
     "hrsh7th/nvim-cmp",
-    opts = overrides.cmp()
+    opts = overrides.cmp(),
   },
   {
     "NvChad/ui",
@@ -78,10 +79,10 @@ local plugins = {
     "onsails/lspkind-nvim",
     lazy = false,
   },
-  {
-    "fatih/vim-go",
-    lazy = false,
-  },
+  -- {
+  --   "fatih/vim-go",
+  --   lazy = false,
+  -- },
   {
     "github/copilot.vim",
     lazy = false,

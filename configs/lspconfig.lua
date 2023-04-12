@@ -10,13 +10,12 @@ for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = function (client, bufnr)
         on_attach(client, bufnr)
-        print(client)
 
           client.server_capabilities.document_formatting = true
           client.server_capabilities.document_range_formatting = true
 
           if client.server_capabilities.document_formatting then
-            vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()"
+            vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.format({bufnr=bufnr})"
            end
       end,
 
