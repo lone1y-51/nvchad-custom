@@ -55,7 +55,7 @@ local plugins = {
   },
   {
     "NvChad/ui",
-    opts = overrides.uiplugin
+    lazy = false,
   },
     {
       "NvChad/nvim-colorizer.lua",

@@ -3,6 +3,7 @@ local M = {}
 
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
+local ui = require "custom.ui"
 
 M.ui = {
   theme = "radium",
@@ -21,7 +22,8 @@ M.ui = {
   hl_add = highlights.add,
   nvdash = {
     load_on_startup = true,
-  }
+  },
+  statusline = ui.statusline,
 }
 
 M.plugins = "custom.plugins"
